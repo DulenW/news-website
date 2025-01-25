@@ -15,8 +15,12 @@ if ($conn->connect_error) {
 // Fetch all news articles
 $sql = "SELECT * FROM news ORDER BY created_at DESC";
 $result = $conn->query($sql);
-?>
 
+// Check if the query was successful
+if (!$result) {
+    die("Query Error: " . $conn->error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,48 +30,60 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h2>Welcome to Admin Dashboard</h2>
-    <a href="php/logout.php">Logout</a>
+    <header class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <a href="php/logout.php" class="logout-btn">Logout</a>
+    </header>
 
-    <h3>Add News</h3>
-    <form action="php/add_news.php" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" required>
-        <br>
-        <label for="content">Content:</label>
-        <textarea name="content" id="content" required></textarea>
-        <br>
-        <label for="category">Category:</label>
-        <input type="text" name="category" id="category" required>
-        <br>
-        <button type="submit">Add News</button>
-    </form>
+    <main class="dashboard-container">
+        <section class="add-news">
+            <h2>Add News</h2>
+            <form action="php/add_news.php" method="POST" class="news-form">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" required>
+                
+                <label for="content">Content</label>
+                <textarea name="content" id="content" rows="5" required></textarea>
+                
+                <label for="category">Category</label>
+                <input type="text" name="category" id="category" required>
+                
+                <button type="submit" class="btn">Add News</button>
+            </form>
+        </section>
 
-    <h3>Manage News</h3>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-        <?php if ($result->num_rows > 0): ?>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?= $row['id'] ?></td>
-                    <td><?= $row['title'] ?></td>
-                    <td><?= $row['category'] ?></td>
-                    <td>
-                        <a href="php/edit_news.php?id=<?= $row['id'] ?>">Edit</a> |
-                        <a href="php/delete_news.php?id=<?= $row['id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <tr><td colspan="4">No news available.</td></tr>
-        <?php endif; ?>
-    </table>
+        <section class="manage-news">
+            <h2>Manage News</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($result->num_rows > 0): ?>
+                        <?php while ($row = $result->fetch_assoc()): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row['id']) ?></td>
+                                <td><?= htmlspecialchars($row['title']) ?></td>
+                                <td><?= htmlspecialchars($row['category']) ?></td>
+                                <td>
+                                    <a href="php/edit_news.php?id=<?= htmlspecialchars($row['id']) ?>" class="action-btn edit-btn">Edit</a>
+                                    <a href="php/delete_news.php?id=<?= htmlspecialchars($row['id']) ?>" class="action-btn delete-btn" onclick="return confirm('Are you sure?')">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4">No news available.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </section>
+    </main>
 </body>
 </html>
-
-<?php $conn->close(); ?>
