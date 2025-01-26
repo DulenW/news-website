@@ -19,16 +19,17 @@ $result = $conn->query($sql);
 </head>
 <body>
     <header>
-        <h1>Welcome to the News Website</h1>
+        <h1>Welcome to the Streamline</h1>
         <nav>
             <a href="index.php">Home</a>
             <a href="about.php">About Us</a>
             <a href="contact.php">Contact Us</a>
+            <a href="php/login.php">Admin</a>
         </nav>
     </header>
     <main>
         <h2>Latest News</h2>
-        <?php if ($result->num_rows > 0): ?>
+        <?php if ($result && $result->num_rows > 0): ?>
             <?php while ($row = $result->fetch_assoc()): ?>
                 <article>
                     <h3><?= htmlspecialchars($row['title']) ?></h3>
@@ -40,5 +41,8 @@ $result = $conn->query($sql);
             <p>No news available.</p>
         <?php endif; ?>
     </main>
+    <footer>
+        <p>&copy; <?= date('Y') ?> Streamline News. All rights reserved.</p>
+    </footer>
 </body>
 </html>

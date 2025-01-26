@@ -12,8 +12,8 @@
         <a href="index.php">Back to Home</a>
     </header>
     <main>
-        <p>Welcome to our News Website! Here you can find the latest updates on various topics.</p>
-        <p>Our mission is to provide accurate and timely news to our audience.</p>
+        <p>Welcome to Streamline!</p>
+        <p>your trusted source for the latest news, insights, and stories from around the world. We are committed to delivering accurate, unbiased, and up-to-date information across various categories, including politics, business, technology, entertainment, and more. Our mission is to keep you informed and engaged, empowering you with the knowledge to navigate today’s world. Stay connected, stay informed.</p>
     </main>
 </body>
 </html>

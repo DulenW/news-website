@@ -1,8 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    // Redirect to admin login if not logged in
-    header("Location: admin.php");
+
+// Check if the admin is logged in
+if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
+    header("Location: php/login.php"); // Redirect to login page
     exit();
 }
 
@@ -36,6 +37,7 @@ if (!$result) {
     </header>
 
     <main class="dashboard-container">
+        <!-- Add News Section -->
         <section class="add-news">
             <h2>Add News</h2>
             <form action="php/add_news.php" method="POST" class="news-form">
@@ -52,6 +54,7 @@ if (!$result) {
             </form>
         </section>
 
+        <!-- Manage News Section -->
         <section class="manage-news">
             <h2>Manage News</h2>
             <table>
