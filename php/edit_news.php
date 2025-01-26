@@ -5,16 +5,16 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Database connection
+
 $conn = new mysqli('localhost', 'root', '', 'news_website');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the news ID to edit
+
 $id = $_GET['id'];
 
-// Fetch the news details
+
 $sql = "SELECT * FROM news WHERE id = $id";
 $result = $conn->query($sql);
 $news = $result->fetch_assoc();

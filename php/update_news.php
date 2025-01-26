@@ -5,19 +5,19 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Database connection
+
 $conn = new mysqli('localhost', 'root', '', 'news_website');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve form data
+
 $id = $_POST['id'];
 $title = $_POST['title'];
 $content = $_POST['content'];
 $category = $_POST['category'];
 
-// Update the news in the database
+
 $sql = "UPDATE news SET title = '$title', content = '$content', category = '$category' WHERE id = $id";
 if ($conn->query($sql) === TRUE) {
     echo "News updated successfully!";

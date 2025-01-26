@@ -1,23 +1,23 @@
 <?php
 session_start();
 
-// Check if the admin is logged in
+
 if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
     header("Location: php/login.php"); // Redirect to login page
     exit();
 }
 
-// Database connection
+
 $conn = new mysqli('localhost', 'root', '', 'news_website');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all news articles
+
 $sql = "SELECT * FROM news ORDER BY created_at DESC";
 $result = $conn->query($sql);
 
-// Check if the query was successful
+
 if (!$result) {
     die("Query Error: " . $conn->error);
 }
@@ -54,7 +54,7 @@ if (!$result) {
             </form>
         </section>
 
-        <!-- Manage News Section -->
+
         <section class="manage-news">
             <h2>Manage News</h2>
             <table>

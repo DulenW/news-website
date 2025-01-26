@@ -4,7 +4,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$id = $_GET['id']; // Get the news ID from the URL
+$id = $_GET['id']; 
 $sql = "SELECT * FROM news WHERE id = $id";
 $result = $conn->query($sql);
 $news = $result->fetch_assoc();

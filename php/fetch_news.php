@@ -1,11 +1,11 @@
 <?php
-// Database connection
+
 $conn = new mysqli('localhost', 'root', '', 'news_website');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch news
+
 $sql = "SELECT * FROM news ORDER BY created_at DESC";
 $result = $conn->query($sql);
 

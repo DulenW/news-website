@@ -4,7 +4,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch the latest 5 news articles
 $sql = "SELECT * FROM news ORDER BY created_at DESC LIMIT 5";
 $result = $conn->query($sql);
 ?>

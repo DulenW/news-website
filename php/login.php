@@ -1,43 +1,43 @@
 <?php
 session_start();
 
-// Database connection
+
 $conn = new mysqli('localhost', 'root', '', 'news_website');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if form is submitted
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and sanitize inputs
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password']; // Password from user input
 
-    // Query to fetch user from the `users` table
+ 
     $sql = "SELECT * FROM users WHERE username = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if user exists
+
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
 
-        // Verify password (plain text in your case)
+
         if ($password === $user['password']) { // Direct comparison since password isn't hashed
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['admin_logged_in'] = true;
 
-            // Redirect to the admin dashboard
+
             header("Location: ../dashboard.php");
             exit();
         } else {
-            // Invalid password
+
             $error_message = "Invalid username or password.";
         }
     } else {
-        // Invalid username
+
         $error_message = "Invalid username or password.";
     }
     $stmt->close();
